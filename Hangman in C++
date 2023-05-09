@@ -1,0 +1,68 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <ctime>
+#include <cstdlib>
+
+using namespace std;
+
+const vector<string> WORDS = {
+    "ABSTRACT", "ALCHEMY", "ANALYZE", "ASTRONOMY", "BANJO", "BICYCLE", "BOOKKEEPER",
+    "CANDY", "CHICKEN", "COBRA", "COMPUTER", "DICTIONARY", "DWARF", "ECLIPSE",
+    "ELEPHANT", "EXPERIENCE", "FAUCET", "FUTURE", "GARDEN", "GLACIER", "GRAPEFRUIT",
+    "HAPPINESS", "HURRICANE", "INFINITE", "INHERITANCE", "JAZZ", "JUNGLE", "KANGAROO",
+    "KITCHEN", "LAMBDA", "LIFE", "LOGIC", "MADNESS", "MANGO", "MICROSCOPE",
+    "MOUNTAIN", "NEEDLE", "NINJA", "OCEAN", "OPTIMISM", "ORANGE", "PASTRY",
+    "PENGUIN", "PHOENIX", "POLYGON", "PROGRESS", "PUZZLE", "QUEEN", "QUIZ",
+    "RADIO", "RAINBOW", "ROBOT", "SANDWICH", "SCIENCE", "SECRET", "SHADOW",
+    "SKYLINE", "SOCCER", "STRAWBERRY", "SYNTAX", "TIGER", "TODDLER", "TRIANGLE",
+    "UNICORN", "UNIVERSE", "VAMPIRE", "VICTORY", "VOCABULARY", "WATERFALL", "WIZARD",
+    "XYLOPHONE", "YELLOW", "YOGURT", "ZEBRA", "ZENITH", "ZOMBIE"
+};
+
+const int MAX_GUESSES = 6;
+
+string choose_word() {
+    srand(time(0));
+    int index = rand() % WORDS.size();
+    return WORDS[index];
+}
+
+string hide_word(const string& word, const vector<char>& guessed_letters) {
+    string hidden_word(word.size(), '-');
+    for (int i = 0; i < word.size(); i++) {
+        if (find(guessed_letters.begin(), guessed_letters.end(), word[i]) != guessed_letters.end()) {
+            hidden_word[i] = word[i];
+        }
+    }
+    return hidden_word;
+}
+
+bool is_guess_correct(const string& word, char guess) {
+    return word.find(guess) != string::npos;
+}
+
+void print_man(int guesses) {
+    switch (guesses) {
+        case 0:
+            cout << " _______" << endl;
+            cout << "|       |" << endl;
+            cout << "|       O" << endl;
+            cout << "|      /|\\" << endl;
+            cout << "|      / \\" << endl;
+            cout << "|" << endl;
+            break;
+        case 1:
+            cout << " _______" << endl;
+            cout << "|       |" << endl;
+            cout << "|       O" << endl;
+            cout << "|      /|\\" << endl;
+            cout << "|      /  " << endl;
+            cout << "|" << endl;
+            break;
+        case 2:
+            cout << " _______" << endl;
+            cout << "|       |" << endl;
+            cout << "|       O" << endl;
+            cout << "|      /|\\"
