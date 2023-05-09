@@ -1,0 +1,42 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int drawCard() {
+   return rand() % 10 + 1;
+}
+
+int main() {
+   srand(time(NULL));
+   int playerScore = 0;
+   int dealerScore = 0;
+   while (true) {
+      int card = drawCard();
+      cout << "You drew a " << card << endl;
+      playerScore += card;
+      if (playerScore > 21) {
+         cout << "You bust! Dealer wins!" << endl;
+         break;
+      }
+      cout << "Your score: " << playerScore << endl;
+      cout << "Do you want to hit (h) or stand (s)? ";
+      char choice;
+      cin >> choice;
+      if (choice == 's') {
+         break;
+      }
+   }
+   while (dealerScore < 17) {
+      int card = drawCard();
+      cout << "Dealer drew a " << card << endl;
+      dealerScore += card;
+   }
+   cout << "Dealer's score: " << dealerScore << endl;
+   if (dealerScore > 21 || playerScore > dealerScore) {
+      cout << "You win!" << endl;
+   } else {
+      cout << "Dealer wins!" << endl;
+   }
+   return 0;
+}
