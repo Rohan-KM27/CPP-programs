@@ -1,0 +1,75 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+const int BOARD_SIZE = 3;
+char board[BOARD_SIZE][BOARD_SIZE];
+
+void init_board() {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            board[i][j] = '-';
+        }
+    }
+}
+
+void print_board() {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            cout << board[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+
+bool is_valid_move(int row, int col) {
+    if (row < 0 || row >= BOARD_SIZE || col < 0 || col >= BOARD_SIZE) {
+        return false;
+    }
+    if (board[row][col] != '-') {
+        return false;
+    }
+    return true;
+}
+
+bool is_game_over() {
+    // Check rows
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        if (board[i][0] != '-' && board[i][0] == board[i][1] && board[i][1] == board[i][2]) {
+            return true;
+        }
+    }
+    // Check columns
+    for (int j = 0; j < BOARD_SIZE; j++) {
+        if (board[0][j] != '-' && board[0][j] == board[1][j] && board[1][j] == board[2][j]) {
+            return true;
+        }
+    }
+    // Check diagonals
+    if (board[0][0] != '-' && board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
+        return true;
+    }
+    if (board[0][2] != '-' && board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
+        return true;
+    }
+    // Check if board is full
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if (board[i][j] == '-') {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+int main() {
+    int player = 1;
+    int row, col;
+
+    init_board();
+
+    while (!is_game_over()) {
+        cout << "Player " << player << ", enter your move (row col): ";
+        cin >> row >>
